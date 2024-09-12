@@ -1,0 +1,161 @@
+diff --git a/node_modules/ytmusic-api/README.md.orig b/node_modules/ytmusic-api/README.md.orig
+new file mode 100644
+index 0000000..9cd2d2e
+--- /dev/null
++++ b/node_modules/ytmusic-api/README.md.orig
+@@ -0,0 +1,63 @@
++# YTMusic API
++
++![License](https://img.shields.io/github/license/zS1L3NT/ts-npm-ytmusic-api?style=for-the-badge) ![Languages](https://img.shields.io/github/languages/count/zS1L3NT/ts-npm-ytmusic-api?style=for-the-badge) ![Top Language](https://img.shields.io/github/languages/top/zS1L3NT/ts-npm-ytmusic-api?style=for-the-badge) ![Commit Activity](https://img.shields.io/github/commit-activity/y/zS1L3NT/ts-npm-ytmusic-api?style=for-the-badge) ![Last commit](https://img.shields.io/github/last-commit/zS1L3NT/ts-npm-ytmusic-api?style=for-the-badge)
++
++YouTube Music API (Unofficial) is a YouTube Music data scraper. It comes with TypeScript support API for return types. The NPM package can be found [here](https://npmjs.com/package/ytmusic-api)
++
++## Motivation   
++
++I used to use [youtube-music-api](https://npmjs.com/package/youtube-music-api) as my youtube music api data scraper. I liked looking into the source code of how it works but it never made sense to me. I also didn't like that there were no TypeScript annotations for the return types of methods.
++Because of this, I decided to build my own version of a youtube music api with TypeScript annotations, testing and written in a way I can understand.
++
++## Features
++
++-   TypeScript Support for data return types
++    -   Data from YouTube can be inconsistent but YTMusic API has been tested and the data matches the TypeScript types 95% of the time
++-   Scrape information directly from YouTube Music API
++    -   Search Suggestions
++    -   Songs
++    -   Videos
++    -   Artists
++    -   Albums
++    -   Playlists
++    -   Lyrics
++
++## Usage
++
++```js
++import YTMusic from "ytmusic-api"
++
++const ytmusic = new YTMusic()
++await ytmusic.initialize(/* Optional: Custom cookies */)
++
++ytmusic.search("Never gonna give you up").then(songs => {
++	console.log(songs)
++})
++```
++
++## Credits
++
++A lot of the credit should go to [youtube-music-api](https://npmjs.com/package/youtube-music-api). I build this package as a refactored and tested version of youtube-music-api with TypeScript annotations
++
++## Testing
++
++YTMusic API's data return types are tested with Bun Test. To run the tests, run the command
++
++```
++$ bun test
++```
++
++## Built with
++
++-   NodeJS
++    -   TypeScript
++        -   [![@types/tough-cookie](https://img.shields.io/badge/%40types%2Ftough--cookie-%5E4.0.5-red?style=flat-square)](https://npmjs.com/package/@types/tough-cookie/v/4.0.5)
++        -   [![bun-types](https://img.shields.io/badge/bun--types-%5E1.1.18-red?style=flat-square)](https://npmjs.com/package/bun-types/v/1.1.18)
++        -   [![tsup](https://img.shields.io/badge/tsup-%5E8.1.0-red?style=flat-square)](https://npmjs.com/package/tsup/v/8.1.0)
++        -   [![typescript](https://img.shields.io/badge/typescript-5.1-red?style=flat-square)](https://npmjs.com/package/typescript/v/5.1)
++    -   Miscellaneous
++        -   [![@biomejs/biome](https://img.shields.io/badge/%40biomejs%2Fbiome-1.8.3-red?style=flat-square)](https://npmjs.com/package/@biomejs/biome/v/1.8.3)
++        -   [![axios](https://img.shields.io/badge/axios-%5E1.7.2-red?style=flat-square)](https://npmjs.com/package/axios/v/1.7.2)
++        -   [![tough-cookie](https://img.shields.io/badge/tough--cookie-%5E4.1.4-red?style=flat-square)](https://npmjs.com/package/tough-cookie/v/4.1.4)
++        -   [![zod](https://img.shields.io/badge/zod-%5E3.23.8-red?style=flat-square)](https://npmjs.com/package/zod/v/3.23.8)
++        -   [![zod-to-json-schema](https://img.shields.io/badge/zod--to--json--schema-%5E3.23.1-red?style=flat-square)](https://npmjs.com/package/zod-to-json-schema/v/3.23.1)
+\ No newline at end of file
+diff --git a/node_modules/ytmusic-api/README.md.rej b/node_modules/ytmusic-api/README.md.rej
+new file mode 100644
+index 0000000..10e29a6
+--- /dev/null
++++ b/node_modules/ytmusic-api/README.md.rej
+@@ -0,0 +1,9 @@
++@@ -6,7 +6,7 @@
++ 
++ ## Motivation   
++ 
++-"zod-to-json-schema": "^3.23.1"
+++"zod-to-json-schema": "^3.23.2"
++ Because of this, I decided to build my own version of a youtube music api with TypeScript annotations, testing and written in a way I can understand.
++ 
++ ## Features
+diff --git a/node_modules/ytmusic-api/package.json.orig b/node_modules/ytmusic-api/package.json.orig
+new file mode 100644
+index 0000000..7d601af
+--- /dev/null
++++ b/node_modules/ytmusic-api/package.json.orig
+@@ -0,0 +1,40 @@
++{
++	"name": "ytmusic-api",
++	"version": "5.2.2",
++	"description": "YouTube Music API",
++	"main": "./dist/index.js",
++	"module": "./dist/index.mjs",
++	"types": "./dist/index.d.ts",
++	"author": "zS1L3NT <dev@zectan.com> (http://www.zectan.com)",
++	"license": "GPL-3.0",
++	"repository": {
++		"type": "git",
++		"url": "https://github.com/zS1L3NT/ts-npm-ytmusic-api"
++	},
++	"files": ["dist", "package.json"],
++	"exports": {
++		".": {
++			"require": "./dist/index.js",
++			"import": "./dist/index.mjs",
++			"types": "./dist/index.d.ts"
++		}
++	},
++	"scripts": {
++		"build": "tsup src/index.ts",
++		"lint": "tsc --noEmit ; bunx @biomejs/biome check --write"
++	},
++	"dependencies": {
++		"@biomejs/biome": "1.8.3",
++		"axios": "^1.7.2",
++		"tough-cookie": "^4.1.4",
++		"zod": "^3.23.8"
++	},
++	"devDependencies": {
++		"@types/tough-cookie": "^4.0.5",
++		"bun-types": "^1.1.18",
++		"tsup": "^8.1.0",
++		"typescript": "5.1",
++		"zod-to-json-schema": "^3.23.1"
++	},
++	"keywords": ["youtube", "music", "api"]
++}
+diff --git a/node_modules/ytmusic-api/package.json.rej b/node_modules/ytmusic-api/package.json.rej
+new file mode 100644
+index 0000000..10e29a6
+--- /dev/null
++++ b/node_modules/ytmusic-api/package.json.rej
+@@ -0,0 +1,9 @@
++@@ -6,7 +6,7 @@
++ 
++ ## Motivation   
++ 
++-"zod-to-json-schema": "^3.23.1"
+++"zod-to-json-schema": "^3.23.2"
++ Because of this, I decided to build my own version of a youtube music api with TypeScript annotations, testing and written in a way I can understand.
++ 
++ ## Features
+diff --git a/node_modules/ytmusic-api/package.json.rej.orig b/node_modules/ytmusic-api/package.json.rej.orig
+new file mode 100644
+index 0000000..10e29a6
+--- /dev/null
++++ b/node_modules/ytmusic-api/package.json.rej.orig
+@@ -0,0 +1,9 @@
++@@ -6,7 +6,7 @@
++ 
++ ## Motivation   
++ 
++-"zod-to-json-schema": "^3.23.1"
+++"zod-to-json-schema": "^3.23.2"
++ Because of this, I decided to build my own version of a youtube music api with TypeScript annotations, testing and written in a way I can understand.
++ 
++ ## Features
