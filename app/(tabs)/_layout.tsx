@@ -1,11 +1,13 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
-import { Pressable } from "react-native";
+import { Tabs } from "expo-router";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
+import { Ionicons, Octicons } from "@expo/vector-icons";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import CustomTabBar from "@/components/CustomTabBar";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -18,39 +20,36 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  const renderTabBar = (props: BottomTabBarProps) => (
+    <CustomTabBar {...props} />
+  );
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: Colors["dark"].tint,
         headerShown: useClientOnlyValue(false, true),
       }}
+      tabBar={renderTabBar}
     >
       <Tabs.Screen
-        name="index"
+        name="(home)"
         options={{
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          title: "Trang chủ",
+          tabBarIcon: ({ color }) => (
+            <Octicons name="home" size={25} color={color} />
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="(setting)"
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Cài đặt",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="settings-outline" size={25} color={color} />
+          ),
+          headerShown: false,
         }}
       />
     </Tabs>

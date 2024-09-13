@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { TanstackProvider } from "@/utils/tanstack-query.provider";
+import { StatusBar } from "expo-status-bar";
+import { Text, View } from "@/components/Themed";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,15 +49,25 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <TanstackProvider>
+      <RootLayoutNav />
+    </TanstackProvider>
+  );
 }
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
+    <ThemeProvider value={DarkTheme}>
+      <StatusBar style="light" />
+      <Stack
+        screenOptions={{
+          headerBackTitleVisible: false,
+          headerTitleAlign: "center",
+        }}
+      >
         <Stack.Screen
           name="(tabs)"
           options={{
